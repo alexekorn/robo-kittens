@@ -1,4 +1,4 @@
-var RoboKittens = {
+const RoboKittens = {
     /*
      * Status of the game
      */
@@ -19,19 +19,19 @@ var RoboKittens = {
             'F': 3 * 12,
             'L': 3 * 13,
         };
-        for (key in powersMap) {
+        for (let key in powersMap) {
             if (display.match(new RegExp(key + '$'))) {
                 return rawAmount * Math.pow(10, powersMap[key]);
             }
         }
-        return parseFloat(display.replace(/\//, ''), 10);
+        return parseFloat(display.replace(/\//, ''));
     },
     getResourceAmount: function(resource) {
-        var cell = $('.res-table .resource_' + resource + ' div.resAmount');
+        const cell = $('.res-table .resource_' + resource + ' div.resAmount');
         return this.getAmountFromDisplay(cell.text());
     },
     getResourceLimit: function(resource) {
-        var cell = $('.res-table .resource_' + resource + ' div.maxRes');
+        const cell = $('.res-table .resource_' + resource + ' div.maxRes');
         return this.getAmountFromDisplay(cell.text());
     },
     getResourcePercentFull: function(resource) {
@@ -42,7 +42,7 @@ var RoboKittens = {
             .find('div.resPerTick').text()
     },
     getResourceRate: function(resource) {
-        var rawText = this.getRawResourceRate(resource),
+        const rawText = this.getRawResourceRate(resource),
             number = rawText.replace(/\(|\+|\)/g, '').replace('/s', '');
         return this.getAmountFromDisplay(number);
     },
@@ -50,10 +50,10 @@ var RoboKittens = {
         return $('#gameContainerId').find('.tabsContainer').find('a:contains("Trade (!)")').length === 1;
     },
     getCurrentEnergy: function() {
-        return parseFloat($('#headerToolbar .energy').find('div:contains("Wt")').text().match(/[\-\.0-9]+/)[0]);
+        return parseFloat($('#headerToolbar .energy').find('div:contains("Wt")').text().match(/[\-\.\d]+/)[0]);
     },
     updateTimeCounts: function() {
-        var me = this;
+        const me = this;
         //
         me.resourceRetrievalCount = parseInt($('#gameContainerId').find('span:contains("Resource Retrieval")').text().match(/\((\d+)\)/)[1], 10);
         me.chronoFurnaceCount = parseInt($('#gameContainerId').find('span:contains("Chrono Furnace")').text().match(/\((\d+)\)/)[1], 10);
@@ -70,7 +70,7 @@ var RoboKittens = {
                 'Click to refresh (updates automatically with ChronoFurnace change)');
     },
     updateIntervalForResourceRetrieval: function(time) {
-        var me = this;
+        const me = this;
         if (!me.resourceRetrievalPercentIncrease) {
             return time;
         }
@@ -105,7 +105,7 @@ var RoboKittens = {
      * @returns {number}
      */
     getCachedEnergyPerContainmentChamber: function() {
-        var me = this;
+        const me = this;
         if (me.energyPerContainmentChamber) {
             return me.energyPerContainmentChamber;
         }
@@ -148,7 +148,7 @@ var RoboKittens = {
     intervals: {
     },
     getResourceInterval: function(resource) {
-        var interval = this.getResourceLimit(resource) / this.getResourceRate(resource);
+        const interval = this.getResourceLimit(resource) / this.getResourceRate(resource);
         // happens during void space
         if (Number.isNaN(interval)) {
             return 5.0;
@@ -335,19 +335,18 @@ var RoboKittens = {
                 && $('.craftTable').find('a:contains("-")').length === 0) {
             this.initializeResources();
         }
-        var resourcesToShowTimeLimits = ['catnip', 'wood', 'minerals', 'coal', 'iron',
+        const resourcesToShowTimeLimits = ['catnip', 'wood', 'minerals', 'coal', 'iron',
                 'titanium', 'gold', 'oil', 'uranium', 'unobtainium', 'catpower',
-                'science', 'culture', 'faith'],
-            i, length;
-        for (var i = 0, length = resourcesToShowTimeLimits.length; i < length; ++i) {
-            var resource = resourcesToShowTimeLimits[i],
+                'science', 'culture', 'faith'];
+        for (let i = 0, length = resourcesToShowTimeLimits.length; i < length; ++i) {
+            const resource = resourcesToShowTimeLimits[i],
                 interval = this.getResourceInterval(resource),
                 rawInterval = Math.floor(interval);
             $('#resContainer').find('td:contains("' + resourcesToShowTimeLimits[i] + '")').
                 prop('title', 'Time to cap: ' + interval.toFixed(2) + 's' + "\n"
                     + 'Recommended interval: ' + rawInterval + 's');
         }
-        var resourcesToClickers = {
+        const resourcesToClickers = {
             catnip: 'wood',
             wood: 'beam',
             minerals: 'slab',
@@ -359,7 +358,7 @@ var RoboKittens = {
             culture: 'manuscript',
             faith: 'praiseTheSun'
         };
-        for (var resource in resourcesToClickers) {
+        for (let resource in resourcesToClickers) {
             if (resourcesToClickers.hasOwnProperty(resource)) {
                 this.intervals[resourcesToClickers[resource]]
                     // get to 98% capacity
@@ -374,7 +373,7 @@ var RoboKittens = {
             = this.updateIntervalForResourceRetrieval(
                 this.getResourceInterval('uranium')) * 0.98 * 1000 * 0.5;
 
-        var ironInterval;
+        let ironInterval;
         if (this.activeClickers['steel'])
         {
             ironInterval = this.getResourceInterval('coal') / 4;
@@ -390,7 +389,8 @@ var RoboKittens = {
                 1000 / this.getResourceRate('unobtainium')) * 0.98 * 1000;
         // 5k per trade; only want to use X% on this
         // Usually 0.5 (50%) for main run; increase when Eludium is high
-        var unobtaniumRate = this.getResourceRate('unobtainium'), interval;
+        const unobtaniumRate = this.getResourceRate('unobtainium');
+        let interval;
         if (!unobtaniumRate) {
             interval = 5000; // try back in 5s
         }
@@ -401,7 +401,7 @@ var RoboKittens = {
         this.intervals['leviathans'] = interval;
     },
     initialize: function() {
-        var me = this;
+        const me = this;
         setInterval($.proxy(this.reinitialize, this), 1000);
         this.reinitialize();
         this.initializeHunt();
@@ -704,7 +704,7 @@ var RoboKittens = {
                 function() {
             me.contChamberPower = !me.contChamberPower;
                     // positive power, want to turn on
-                    var getChambersToChange = function(contChambersToChange) {
+                    const getChambersToChange = function(contChambersToChange) {
                         if (contChambersToChange > 0) {
                             // all on, so skip
                             if (me.contChambersOn === me.contChamberCount) {
