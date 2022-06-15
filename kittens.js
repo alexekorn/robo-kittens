@@ -18,6 +18,7 @@ const RoboKittens = {
             'H': 3 * 11,
             'F': 3 * 12,
             'L': 3 * 13,
+            'W': 3 * 14,
         };
         for (let key in powersMap) {
             if (display.match(new RegExp(key + '$'))) {
