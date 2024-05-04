@@ -119,8 +119,11 @@ const RoboKittens = {
      * @returns {number}
      */
     calculateEnergyPerContainmentChamber: function() {
-        const heatsinkCount = parseInt($('#gameContainerId')
-                .find('span:contains("Heatsink")').text().match(/\d+/g)[0], 10),
+        const heatsinkText = $('#gameContainerId')
+                .find('span:contains("Heatsink")').text().match(/\d+/g),
+            heatsinkCount = heatsinkText
+                ? parseInt(heatsinkText[0], 10)
+                : 0,
             // base energy
         energy = 50
             // plus heatsinks
