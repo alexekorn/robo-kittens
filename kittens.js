@@ -862,6 +862,9 @@ const RoboKittens = {
                 return !me.isTemporalParadox();
             })
         );
+
+        // always display full pollution information
+        game.detailedPollutionInfo = true;
     },
     combustTc: function(forceRedmoon) {
         var me = this;
