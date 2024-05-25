@@ -491,6 +491,7 @@ const RoboKittens = {
             $('#leviathansFullStatus'),
             $.proxy(function() {
                 return this.getResourcePercentFull('unobtainium') > 0.5
+                    && this.getResourceAmount('unobtainium') > 5000
                     && this.areEldersPresent();
             }, this)));
         $('#roboKittensClick-feedElders').click(this.getClickListenerSpecial('feedElders', 2 * 1000,
