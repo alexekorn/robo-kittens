@@ -787,8 +787,11 @@ const RoboKittens = {
             },
             $('#combustStatus'),
             function() {
-                return me.getResourceAmount('unobtainium')
-                    > me.UNOBTAINIUM_PER_LEVIATHAN_TRADE;
+                return true;
+                // TODO why did we used to only combust when we had enough to
+                //  trade with elders?
+                //return me.getResourceAmount('unobtainium')
+                    //> me.UNOBTAINIUM_PER_LEVIATHAN_TRADE;
             }));
         $('#roboKittensClick-combustOne').click($.proxy(this.combustTc, this, true));
 
