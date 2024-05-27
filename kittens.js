@@ -1,4 +1,5 @@
 const RoboKittens = {
+    UNOBTAINIUM_PER_LEVIATHAN_TRADE: 5000,
     /*
      * Status of the game
      */
@@ -400,7 +401,9 @@ const RoboKittens = {
         }
         else {
             interval = this.updateIntervalForResourceRetrieval(
-                5000 / this.getResourceRate('unobtainium')) / 0.8 * 0.98 * 1000;
+                this.UNOBTAINIUM_PER_LEVIATHAN_TRADE
+                / this.getResourceRate('unobtainium'))
+                / 0.8 * 0.98 * 1000;
         }
         this.intervals['leviathans'] = interval;
     },
@@ -472,7 +475,8 @@ const RoboKittens = {
                 },
                 $('#leviathansStatus'),
                 $.proxy(function() {
-                    return this.getResourceAmount('unobtainium') > 5000
+                    return this.getResourceAmount('unobtainium')
+                            > this.UNOBTAINIUM_PER_LEVIATHAN_TRADE
                         && this.areEldersPresent();
                 }, this)));
         $('#roboKittensClick-' + 'leviathans').prop('title',
@@ -491,7 +495,8 @@ const RoboKittens = {
             $('#leviathansFullStatus'),
             $.proxy(function() {
                 return this.getResourcePercentFull('unobtainium') > 0.5
-                    && this.getResourceAmount('unobtainium') > 5000
+                    && this.getResourceAmount('unobtainium')
+                        > this.UNOBTAINIUM_PER_LEVIATHAN_TRADE
                     && this.areEldersPresent();
             }, this)));
         $('#roboKittensClick-feedElders').click(this.getClickListenerSpecial('feedElders', 2 * 1000,
@@ -782,7 +787,8 @@ const RoboKittens = {
             },
             $('#combustStatus'),
             function() {
-                return me.getResourceAmount('unobtainium') > 5000;
+                return me.getResourceAmount('unobtainium')
+                    > me.UNOBTAINIUM_PER_LEVIATHAN_TRADE;
             }));
         $('#roboKittensClick-combustOne').click($.proxy(this.combustTc, this, true));
 
@@ -924,7 +930,7 @@ const RoboKittens = {
             $('#gameContainerId').find('span:contains("Combust TC")')[0].click();
         }
 
-        if (false && me.getResourceAmount('unobtainium') > 5000
+        if (false && me.getResourceAmount('unobtainium') > me.UNOBTAINIUM_PER_LEVIATHAN_TRADE
                 && me.areEldersPresent()) {
             $('#gameContainerId').find('.tabsContainer').find('a:contains("Trade (!)")')[0].click();
             $('#gameContainerId').find('div.title:contains("Leviathans")').next().find('span:contains("Send caravan")')[0].click();
