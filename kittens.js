@@ -548,7 +548,7 @@ const RoboKittens = {
                 bcoinCount = me.getResourceAmount('blackcoin');
                 // the idea behind these thresholds is that it should take at least the time of the delay (20 minutes)
                 // to go between prices. It seems like it moves maybe 2-3/hour on average?
-                // keeep buying until the bitter end; it'll keep going up
+                // keep buying until the bitter end; it'll keep going up
                 if (bcoinPrice < 1100 - 15 && relicCount > 1000000) {
                     // buy bcoin
                     $('#gameContainerId').find('div.crypto-trade').find('span.btnTitle:contains("Buy bcoin")').click();
@@ -590,9 +590,9 @@ const RoboKittens = {
                     'Mansion',
 
                     'Lumber Mill',
-// TODO apocalypse
-                    //'Mine',
-                    //'Smelter',
+// Omit these for apocalypse
+                    'Mine',
+                    'Smelter',
                     'Barn',
                 ];
                 buildings.forEach(function(building) {
