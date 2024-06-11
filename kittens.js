@@ -950,7 +950,7 @@ const RoboKittens = {
             if (me.clickFns['beam'] && me.activeClickers['beam']) {
                 me.clickFns['beam']();
             }
-            if (me.clickFns['slab'] && me.activeClickers['slap']) {
+            if (me.clickFns['slab'] && me.activeClickers['slab']) {
                 me.clickFns['slab']();
             }
             if (me.activeClickers['steel']) {
